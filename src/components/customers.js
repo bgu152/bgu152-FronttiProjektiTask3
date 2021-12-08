@@ -30,7 +30,8 @@ export default function Customerlist() {
 
     const columns = [{
         Header: 'First name',
-        accessor: 'firstname'
+        accessor: row => {return `${row.firstname}`},
+        id:12
     },
     {
         Header: 'Last name',

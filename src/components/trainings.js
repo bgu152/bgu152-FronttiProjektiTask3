@@ -63,7 +63,7 @@ const customerNames = async () => {
                             activity: row.activity,
                             duration: row.duration,
                             date: row.date,
-                            customerHref: row.links[2].href,
+                            customerHref: `${row.links[2].href}`,
                             customerFirstname: 'default',
                             customerLastname: 'default'
                         }))
