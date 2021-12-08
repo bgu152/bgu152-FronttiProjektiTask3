@@ -15,7 +15,8 @@ import {
   BrowserRouter,
   Routes,
   Route,
-  Link
+  Link,
+  HashRouter
 } from "react-router-dom";
 
 //Here I used the following resource as a guide to get the tabs into the app bar: https://codesandbox.io/s/2obdz?file=/src/index.tsx:269-378
@@ -50,7 +51,7 @@ function App() {
         </Tabs>
         </AppBar> */}
 
-      <BrowserRouter>
+      <HashRouter>
         <AppBar position = "static">
           <Tabs>
             <Tab
@@ -78,7 +79,7 @@ function App() {
           <Route path="/customers" element={<Customerlist />} />
           <Route path="/calendar" element={<CalendarApp />} />
         </Routes>
-      </BrowserRouter>
+      </HashRouter>
       {/* <Customerlist/> */}
       {/* <Trainingslist/> */}
     </div>
