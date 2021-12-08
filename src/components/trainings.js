@@ -24,19 +24,16 @@ export default function Trainingslist() {
     const [trainings_done,setTrainings_done] = useState([]);
 
     useEffect(() => {
-        console.log('useEffect1')
         fetchData();
 
     }, []);
     useEffect(() => {
-        console.log('useEffect2')
         customerNames();
 
     }, [trainings]);
 
 
 const customerNames = async () => {
-    console.log('customerNames');
     let i=0;
     let list=trainings;
     for(i;i < trainings.length;i++){
@@ -44,34 +41,40 @@ const customerNames = async () => {
         const json = await response.json();
         list[i].customerFirstname = json.firstname;
         list[i].customerLastname = json.lastname;
-        console.log(list);
       }
       setTrainings_done(list);
    }
 
 
     const fetchData = () => {
-        console.log('fetchData');
         fetch('https://customerrest.herokuapp.com/api/trainings')
             .then(response => response.json())
             .then(
 
                 data => {
-                    const results = data.content.map((row, index) => (
+                    const results = data.content.map(row => (
                         {
-                            id: index,
                             activity: row.activity,
                             duration: row.duration,
                             date: row.date,
                             customerHref: `${row.links[2].href}`,
+                            href: `${row.links[0].href}`,
                             customerFirstname: 'default',
-                            customerLastname: 'default'
+                            customerLastname: 'default',
+                            
                         }))
                     setTrainings(results);
                 })
-            .then(results => console.log(results))
     }
 
+
+    const deleteTraining = (link) => {
+        if (window.confirm('Are you sure?')) {
+            fetch(link, { method: 'DELETE' })
+                .then(res => fetchData())
+                .catch(err => console.error(err))
+        }
+    }
 
     const columns = [{
         Header: 'Activity',
@@ -101,6 +104,13 @@ const customerNames = async () => {
         id:'2',
         Header: 'Customer',
         accessor: row => {return `${row.customerFirstname}` + " "  + `${row.customerLastname}`}
+    },
+    {
+        sortable: false,
+        filterable: false,
+        width: 150,
+        accessor: 'href',
+        Cell: row => <Button color='secondary' onClick={() => deleteTraining(row.value)}>Delete</Button>
     }
     ]
 
