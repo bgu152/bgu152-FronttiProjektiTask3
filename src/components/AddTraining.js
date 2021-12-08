@@ -84,7 +84,7 @@ export default function AddTraining(props) {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <Button style={{ margin: 10 }} variant="outlined" onClick={handleClickOpen}>
+            <Button onClick={handleClickOpen}>
                 Add Activity
             </Button>
             <Dialog open={open} onClose={handleClose}>
@@ -114,15 +114,7 @@ export default function AddTraining(props) {
                         variant="standard"
                         onChange={event => handleInputChange(event)}
                     />
-                    <TextField
-                        margin="dense"
-                        id="href"
-                        label="href"
-                        value={training.customer}
-                        fullWidth
-                        variant="standard"
-                        onChange={event => handleInputChange(event)}
-                    />
+
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>Cancel</Button>
