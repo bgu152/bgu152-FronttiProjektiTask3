@@ -11,38 +11,75 @@ import { getThemeProps } from '@mui/system';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import{
+import {
   BrowserRouter,
   Routes,
   Route,
   Link
-  }from "react-router-dom";
+} from "react-router-dom";
+
+//Here I used the following resource as a guide to get the tabs into the app bar: https://codesandbox.io/s/2obdz?file=/src/index.tsx:269-378
+import {
+  CssBaseline,
+  Tabs,
+  Tab,
+  Box
+} from "@material-ui/core";
 
 
 import Trainingslist from './components/trainings';
 import Customerlist from './components/customers';
+import CalendarApp from './components/CalendarApp';
 
+
+//Here I used the following video as a guide to get the React router to work with the AppBar
+//https://www.youtube.com/watch?v=voNhE4vNFa4&ab_channel=bonsaiilabs
 
 function App() {
 
   const pages = ['Traning sessions', 'Customers'];
+  const routes = ["/", "/customers", "/calendar"];
   return (
     <div className="App">
-      <AppBar position = "static">
-        <Typography variant = 'h6'>
-          Appbar
-        </Typography>
-        </AppBar>
+      {/* <AppBar position = "static">
+        <Tabs>
+          <Tab label="Training sessions"
+          
+          />
+          <Tab label="TAB2" />
+        </Tabs>
+        </AppBar> */}
 
-        <BrowserRouter>
-          <Link to="/">Training sessions</Link> {' '}
-          <Link to="/customers">Customers</Link> {' '}
-          <Routes>
-            <Route exact path ="/" element ={<Trainingslist/>}/>
-            <Route path="/customers" element={<Customerlist/>}/>
-          </Routes>
+      <BrowserRouter>
+        <AppBar position = "static">
+          <Tabs>
+            <Tab
+              label="Training sessions"
+              value={routes[0]}
+              component={Link}
+              to={routes[0]}
+            />
+            <Tab
+              label="Customers"
+              value={routes[1]}
+              component={Link}
+              to={routes[1]}
+            />
+            <Tab
+              label="Calendar"
+              value={routes[2]}
+              component={Link}
+              to={routes[2]}
+            />
+          </Tabs>
+        </AppBar>
+        <Routes>
+          <Route exact path="/" element={<Trainingslist />} component={Trainingslist} />
+          <Route path="/customers" element={<Customerlist />} />
+          <Route path="/calendar" element={<CalendarApp />} />
+        </Routes>
       </BrowserRouter>
-        {/* <Customerlist/> */}
+      {/* <Customerlist/> */}
       {/* <Trainingslist/> */}
     </div>
   );

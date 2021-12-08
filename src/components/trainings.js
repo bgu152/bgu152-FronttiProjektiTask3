@@ -4,7 +4,6 @@ import 'react-table-6/react-table.css';
 import { format, formatDistance, formatRelative, subDays } from 'date-fns'
 import AppBar from '@mui/material/AppBar';
 
-
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TextField from '@mui/material/TextField';
@@ -67,7 +66,6 @@ const customerNames = async () => {
                 })
     }
 
-
     const deleteTraining = (link) => {
         if (window.confirm('Are you sure?')) {
             fetch(link, { method: 'DELETE' })
@@ -86,12 +84,7 @@ const customerNames = async () => {
         Header: 'Date',
         accessor: row => 
         {
-            let year = row.date.substring(0,4); 
-            let month = row.date.substring(5,7)-1;
-            let day = row.date.substring(8,10);
-            let hour = row.date.substring(11,13);
-            let minutes = row.date.substring(14,16);
-            let pvm = new Date(year,month, day,hour);
+            let pvm = new Date(row.date);
             return  format(pvm,'Pp') ;
         }
     },
